@@ -7,7 +7,7 @@ public class FILE_OUTPUT {
 	public static RandomAccessFile disco = null;
 	
 	@SuppressWarnings("deprecation")
-	public static void escribir(String s){
+	public static void write(String s){
 		Date d = new Date();
 		try {
 			disco = new RandomAccessFile(d.getYear()+""+d.getMonth()+""+d.getDate(),"rw");

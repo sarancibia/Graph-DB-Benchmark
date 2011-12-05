@@ -3,14 +3,14 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-import data_generator.objects.Amistad;
+import data_generator.objects.Relationship;
 
 
 public class GRAPHML_EXPORT {
     private static FileWriter fichero = null;
     private static PrintWriter pw = null;
     
-	public static void save(ArrayList<Amistad> relaciones){
+	public static void save(ArrayList<Relationship> relaciones){
 
         try
         {
@@ -44,19 +44,22 @@ public class GRAPHML_EXPORT {
            }
         }
 	}
-
-	private static void save_edges(ArrayList<Amistad> relaciones) {
+	private static void save_nodes(ArrayList<String> ids) {
+		for(String id : ids){
+        	pw.println("\t\t<node id=\""+id+"\"/>");
+        }
+	}
+	private static void save_edges(ArrayList<Relationship> relaciones) {
 		int i = 0;
-		for(Amistad relacion : relaciones){
+		for(Relationship relacion : relaciones){
 			pw.println("<edge id=\"e"+ i++ +"\" source=\"" + relacion.profile_a + "\" target=\"" + relacion.profile_b + "\"/>");
 		}
 		
 	}
-
-	private static ArrayList<String> get_ids(ArrayList<Amistad> relaciones) {
+	private static ArrayList<String> get_ids(ArrayList<Relationship> relaciones) {
 		ArrayList<String> ids = new ArrayList<String>();
 		
-		for(Amistad relacion : relaciones){
+		for(Relationship relacion : relaciones){
         	if(!ids.contains(relacion.profile_a)){
         		ids.add(relacion.profile_a);
         	}
@@ -65,12 +68,6 @@ public class GRAPHML_EXPORT {
         	}
         }
 		return ids;
-	}
-
-	private static void save_nodes(ArrayList<String> ids) {
-		for(String id : ids){
-        	pw.println("\t\t<node id=\""+id+"\"/>");
-        }
 	}
 
 }

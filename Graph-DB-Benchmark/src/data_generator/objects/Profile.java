@@ -12,24 +12,20 @@ public class Profile {
 	public String url;
 	public Source profile;
 	
-	public String nombre;
-	public String edad;
-	public String sexo;
-	public String cumpleanos;
-	public String ubicacion;
-	public String ciudad_natal;
-	public String estado_civil;
-	public String buscando;
-	
-	public String idiomas;
-	
-	public String acerca_de_mi;
-	public String intereses;
-	public String musica_favorita;
-	public String peliculas_favoritas;
-	public String programas_de_tv_favoritos;
-	public String libros_favoritos;
-	public String cita_favorita;
+	public String name;
+	public String age;
+	public String sex;
+	public String birthday;
+	public String location;
+	public String looking_to;
+	public String languages;
+	public String about_me;
+	public String interests;
+	public String favorite_music;
+	public String favorite_movies;
+	public String favorite_tv_shows;
+	public String favorite_books;
+	public String favorite_quote;
 	
 	public Profile(){
 		
@@ -37,34 +33,32 @@ public class Profile {
 	public Profile(String url){
 		this.url = url;
 		
-		this.edad = "";
-		this.sexo = "";
-		this.cumpleanos = "";
-		this.ubicacion = "";
-		this.ciudad_natal = "";
-		this.estado_civil = "";
-		this.buscando = "";
-		this.acerca_de_mi = "";
-		this.intereses = "";
-		this.musica_favorita = "";
-		this.peliculas_favoritas = "";
-		this.programas_de_tv_favoritos = "";
-		this.libros_favoritos = "";
-		this.cita_favorita = "";
-		this.idiomas = "";
+		this.age = "";
+		this.sex = "";
+		this.birthday = "";
+		this.location = "";
+		this.looking_to = "";
+		this.about_me = "";
+		this.interests = "";
+		this.favorite_music = "";
+		this.favorite_movies = "";
+		this.favorite_tv_shows = "";
+		this.favorite_books = "";
+		this.favorite_quote = "";
+		this.languages = "";
 		
 		try {
 			this.profile = new Source(new URL("http://hi5.com" + this.url));
 			Element user = profile.getElementById("headerName");
 	
-			this.nombre = user.getTextExtractor().toString();
+			this.name = user.getTextExtractor().toString();
 			
 			
 			try{
 				List<Element> info_boxs = profile.getAllElementsByClass("info-box");
 				for(Element info_box : info_boxs){
 					try{
-						this.setAtributo(info_box.getFirstElementByClass("box_profile_info_small_heading").getTextExtractor().toString(),
+						this.setAttribute(info_box.getFirstElementByClass("box_profile_info_small_heading").getTextExtractor().toString(),
 								info_box.getFirstElementByClass("box_profile_info_small_content").getTextExtractor().toString());
 					}catch(Exception e){}
 				}
@@ -73,7 +67,7 @@ public class Profile {
 			try{
 				Element sections = profile.getElementById("lifestyle");
 
-				this.setAtributo(sections.getFirstElementByClass("bg_title box_profile_info_large_heading").getTextExtractor().toString(),
+				this.setAttribute(sections.getFirstElementByClass("bg_title box_profile_info_large_heading").getTextExtractor().toString(),
 						sections.getFirstElementByClass("box_profile_info_small_content").getTextExtractor().toString());
 			}catch(Exception e){}
 			
@@ -81,14 +75,14 @@ public class Profile {
 				Element interests = profile.getElementById("interests");
 			
 				try{
-					this.setAtributo(interests.getFirstElementByClass("bg_title box_profile_info_large_heading").getTextExtractor().toString(),
+					this.setAttribute(interests.getFirstElementByClass("bg_title box_profile_info_large_heading").getTextExtractor().toString(),
 							interests.getFirstElementByClass("box_profile_info_small_content").getTextExtractor().toString());
 				}catch(Exception e){}
 				
 				List<Element> l_interest = interests.getAllElementsByClass("subsection");
 				for(Element l_interest_item : l_interest){
 					try{				
-						this.setAtributo(l_interest_item.getFirstElementByClass("box_profile_info_small_heading").getTextExtractor().toString(),
+						this.setAttribute(l_interest_item.getFirstElementByClass("box_profile_info_small_heading").getTextExtractor().toString(),
 								l_interest_item.getFirstElementByClass("box_profile_info_small_content").getTextExtractor().toString());
 					}catch(Exception e){}
 				}
@@ -103,48 +97,48 @@ public class Profile {
 			}
 		}
 	}
-	private void setAtributo(String atributo, String contenido) {
-		if(atributo.equals("Age")){
-			this.edad = contenido;			
+	private void setAttribute(String attribute, String content) {
+		if(attribute.equals("Age")){
+			this.age = content;			
 		}
-		else if(atributo.equals("Location")){
-			this.ubicacion = contenido;
+		else if(attribute.equals("Location")){
+			this.location = content;
 		}
-		else if(atributo.equals("Birthday")){
-			this.cumpleanos = contenido;
+		else if(attribute.equals("Birthday")){
+			this.birthday = content;
 		}
-		else if(atributo.equals("Looking To")){
-			this.buscando = contenido;
+		else if(attribute.equals("Looking To")){
+			this.looking_to = content;
 		}
-		else if(atributo.equals("About Me")){
-			this.acerca_de_mi = contenido;
+		else if(attribute.equals("About Me")){
+			this.about_me = content;
 		}
-		else if(atributo.equals("Interests")){
-			this.intereses = contenido;
+		else if(attribute.equals("Interests")){
+			this.interests = content;
 		}
-		else if(atributo.equals("Favorite Music")){
-			this.musica_favorita = contenido;
+		else if(attribute.equals("Favorite Music")){
+			this.favorite_music = content;
 		}
-		else if(atributo.equals("Favorite Movies")){
-			this.peliculas_favoritas = contenido;
+		else if(attribute.equals("Favorite Movies")){
+			this.favorite_movies = content;
 		}
-		else if(atributo.equals("Favorite TV Shows")){
-			this.programas_de_tv_favoritos = contenido;
+		else if(attribute.equals("Favorite TV Shows")){
+			this.favorite_tv_shows = content;
 		}
-		else if(atributo.equals("Favorite Books")){
-			this.libros_favoritos = contenido;
+		else if(attribute.equals("Favorite Books")){
+			this.favorite_books = content;
 		}
-		else if(atributo.equals("Favorite Quote")){
-			this.cita_favorita = contenido;
+		else if(attribute.equals("Favorite Quote")){
+			this.favorite_quote = content;
 		}
-		else if(atributo.equals("Languages")){
-			this.idiomas = contenido;
+		else if(attribute.equals("Languages")){
+			this.languages = content;
 		}
-		else if(atributo.equals("Sex /  Age") || atributo.equals("Sex")){
-			this.sexo = contenido;
+		else if(attribute.equals("Sex /  Age") || attribute.equals("Sex")){
+			this.sex = content;
 		}
 		else{
-			System.out.println(atributo + " - " + contenido);
+			System.out.println(attribute + " - " + content);
 		}
 		
 	}

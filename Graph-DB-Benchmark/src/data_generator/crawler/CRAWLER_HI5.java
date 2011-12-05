@@ -15,7 +15,7 @@ public class CRAWLER_HI5 {
 	public static void main(String[] args) {
 		while(true){
 			if(MYSQL_DATABASE.queue_isEmpty()){
-				getSemillas();
+				getSeeds();
 			}
 			while(!MYSQL_DATABASE.queue_isEmpty()){
 				ArrayList<String> nodos = MYSQL_DATABASE.dequeue();
@@ -29,7 +29,6 @@ public class CRAWLER_HI5 {
 			}
 		}
 	}
-	
 	private static void getFriends(String nodo) {	
 		try {
 			Source profile = new Source(new URL("http://hi5.com" + nodo));
@@ -45,10 +44,10 @@ public class CRAWLER_HI5 {
 					try{
 						if(!MYSQL_DATABASE.exist(friend.getFirstElement("a").getAttributeValue("href"))){
 							Profile p = new Profile(friend.getFirstElement("a").getAttributeValue("href"));
-							if(p.nombre != null)
+							if(p.name != null)
 								MYSQL_DATABASE.enqueue(friend.getFirstElement("a").getAttributeValue("href"));
 						}
-						MYSQL_DATABASE.save_friends(nodo, friend.getFirstElement("a").getAttributeValue("href"));
+						MYSQL_DATABASE.save_friendship(nodo, friend.getFirstElement("a").getAttributeValue("href"));
 					}
 					catch(Exception e){
 					}
@@ -64,10 +63,10 @@ public class CRAWLER_HI5 {
 			} while(friends_url != null);
 		} catch (Exception e) {
 			System.out.println("No se pueden extraer amigos de " + nodo);
-			FILE_OUTPUT.escribir("\t No se pueden extraer amigos de " + nodo);
+			FILE_OUTPUT.write("\t No se pueden extraer amigos de " + nodo);
 		}
 	}
-	public static void getSemillas(){		
+	public static void getSeeds(){		
 		try {
 			Source s = new Source(new URL("http://hi5.com"));
 			List<Element> amigos = s.getAllElementsByClass("friend");
@@ -81,7 +80,7 @@ public class CRAWLER_HI5 {
 			}
 		} catch (Exception e) {
 			System.out.println("No se pueden extraer semillas");
-			FILE_OUTPUT.escribir("\t No se pueden extraer semillas");
+			FILE_OUTPUT.write("\t No se pueden extraer semillas");
 		} 		
 	}
 }
