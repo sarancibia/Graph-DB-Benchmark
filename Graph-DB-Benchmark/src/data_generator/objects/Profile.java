@@ -27,8 +27,7 @@ public class Profile {
 	public String favorite_books;
 	public String favorite_quote;
 	
-	public Profile(){
-		
+	public Profile(){	
 	}
 	public Profile(String url){
 		this.url = url;
@@ -142,4 +141,29 @@ public class Profile {
 		}
 		
 	}
+	public String toString(){
+		return name;
+	}
+	public void fix() {
+		try{
+			if(name != null){
+				name = name.substring(0, name.indexOf("("));
+				name = name.trim();
+			}
+		}catch(Exception e){}
+		
+		try{
+			if(sex != null){
+				String age = sex.substring(sex.indexOf("/"));
+				age = age.replace("/", "");
+				
+				sex = sex.substring(0, sex.indexOf("/"));
+				
+				sex = sex.trim();
+				age = age.trim();
+			}
+		}catch(Exception e){}
+		
+	}
 }
+

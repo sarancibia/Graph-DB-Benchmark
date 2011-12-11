@@ -4,15 +4,15 @@ import java.util.Date;
 
 
 public class FILE_OUTPUT {
-	public static RandomAccessFile disco = null;
+	public static RandomAccessFile disk = null;
 	
 	@SuppressWarnings("deprecation")
 	public static void write(String s){
 		Date d = new Date();
 		try {
-			disco = new RandomAccessFile(d.getYear()+""+d.getMonth()+""+d.getDate(),"rw");
-			disco.seek(disco.length());
-			disco.writeBytes(s+"\n");
+			disk = new RandomAccessFile(d.getYear()+""+d.getMonth()+""+d.getDate(),"rw");
+			disk.seek(disk.length());
+			disk.writeBytes(s+"\n");
 			
 		} catch (Exception e) {
 			
