@@ -29,9 +29,31 @@ public class Profile {
 	
 	public Profile(){	
 	}
+	public Profile(String url, String name, String age, String sex, String birthday, String location, String looking_to, 
+			String languages, String about_me, String interests, String favorite_music, String favorite_movies, 
+			String favorite_tv_shows, String favorite_books, String favorite_quote){
+		
+		this.url = url;
+		this.name = name;
+		this.age = age;
+		this.sex = sex;
+		this.birthday = birthday;
+		this.location = location;
+		this.looking_to = looking_to;
+		this.languages = languages;
+		this.about_me = about_me;
+		this.interests = interests;
+		this.favorite_music = favorite_music;
+		this.favorite_movies = favorite_movies;
+		this.favorite_tv_shows = favorite_tv_shows;
+		this.favorite_books = favorite_books;
+		this.favorite_quote = favorite_quote;
+		
+		this.fix();
+		
+	}
 	public Profile(String url){
 		this.url = url;
-		
 		this.age = "";
 		this.sex = "";
 		this.birthday = "";

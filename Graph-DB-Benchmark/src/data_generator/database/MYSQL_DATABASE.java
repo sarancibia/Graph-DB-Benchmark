@@ -239,6 +239,7 @@ public class MYSQL_DATABASE {
         }	
 	}
 	public static ArrayList<Relationship> getFriendships(int block, int range) {
+		String mysql_url = "jdbc:mysql://localhost/hi520k";
 		ArrayList<Relationship> relaciones = new ArrayList<Relationship>();
 		
 		try {
@@ -247,7 +248,7 @@ public class MYSQL_DATABASE {
 
 			Statement s = conexion.createStatement();
 			
-			String query = "SELECT * FROM hi520k.Hi5_friends LIMIT " + block + "," + range;
+			String query = "SELECT * FROM Hi5_friends LIMIT " + block + "," + range;
 			System.out.println(query);
 			
 			ResultSet rs = s.executeQuery(query);
@@ -400,7 +401,6 @@ public class MYSQL_DATABASE {
         	FILE_OUTPUT.write("\t No se puede crear conexión a la BD");
         }	
 	}
-
 	public static void save(Relationship r){
 		int id_a=0, id_b=0;
 		
@@ -546,6 +546,94 @@ public class MYSQL_DATABASE {
 		 }catch(Exception e){
 			 e.printStackTrace();
 			 return null;
+		 }
+	}
+	public static ArrayList<Profile> getPublicProfile(int block, int range) {
+		ArrayList<Profile> profiles = new ArrayList<Profile>();
+		
+		try {
+			DriverManager.registerDriver(new org.gjt.mm.mysql.Driver());
+			//Connection conexion = DriverManager.getConnection (mysql_url, mysql_username, mysql_password);
+
+			//Statement s = conexion.createStatement();
+			
+			String query = "SELECT * FROM hi5.Hi5_profile LIMIT " + block + "," + range;
+			System.out.println(query);
+			
+//			ResultSet rs = s.executeQuery(query);
+//			while (rs.next()) { 
+//				profiles.add(new Profile(
+//								rs.getString("url"), 
+//								rs.getString("nombre"),
+//								rs.getString("edad"),
+//								rs.getString("sexo"),
+//								rs.getString("cumpleanos"),
+//								rs.getString("ubicacion"),
+//								rs.getString("buscando"),
+//								rs.getString("idiomas"),
+//								rs.getString("acerca_de_mi"),
+//								rs.getString("intereses"),
+//								rs.getString("musica_favorita"),
+//								rs.getString("peliculas_favoritas"),
+//								rs.getString("programas_de_tv_favoritos"),
+//								rs.getString("libros_favoritos"),
+//								rs.getString("cita_favorita")));
+//			}
+//		
+//			conexion.close();
+			
+			return profiles;
+           
+		}catch(Exception e){
+			e.printStackTrace();
+			System.out.println("No se puede crear conexión a la BD");
+			FILE_OUTPUT.write("\t No se puede crear conexión a la BD");
+			
+			return profiles;
+		 }
+	}
+	public static ArrayList<Profile> getPrivateProfile(int i, int range) {
+		ArrayList<Profile> profiles = new ArrayList<Profile>();
+		
+		try {
+			DriverManager.registerDriver(new org.gjt.mm.mysql.Driver());
+			Connection conexion = DriverManager.getConnection (mysql_url, mysql_username, mysql_password);
+
+			Statement s = conexion.createStatement();
+			
+			String query = "SELECT * FROM hi5.Hi5_private_profile LIMIT " + i*range + "," + range;
+			System.out.println(query);
+			
+			ResultSet rs = s.executeQuery(query);
+			while (rs.next()) { 
+				profiles.add(new Profile(
+								rs.getString("url"), 
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null));
+			}
+		
+			conexion.close();
+			
+			return profiles;
+           
+		}catch(Exception e){
+			e.printStackTrace();
+			System.out.println("No se puede crear conexión a la BD");
+			FILE_OUTPUT.write("\t No se puede crear conexión a la BD");
+			
+			return profiles;
 		 }
 	}
 }
